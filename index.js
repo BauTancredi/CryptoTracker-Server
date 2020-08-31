@@ -15,3 +15,10 @@ app.use("/api/users", require("./routes/users"));
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is working on port ${port}`);
 });
+
+//? PENDINGS
+// Connect to DB
+// Hash password
+// Validate fields
+// Create JWT
+// Authenticate users
