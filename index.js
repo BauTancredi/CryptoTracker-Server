@@ -22,3 +22,4 @@ app.listen(port, "0.0.0.0", () => {
 // Validate fields
 // Create JWT
 // Authenticate users
+// Get cryptos
