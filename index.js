@@ -1,7 +1,11 @@
 const express = require("express");
+const connectDB = require("./config/db");
 
 // Create server
 const app = express();
+
+// Connect to DB
+connectDB();
 
 //Enable express.json
 app.use(express.json({ extended: true }));
