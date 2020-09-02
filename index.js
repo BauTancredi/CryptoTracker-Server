@@ -22,5 +22,4 @@ app.listen(port, "0.0.0.0", () => {
 });
 
 //? PENDINGS
-// Authenticate users
 // Get cryptos
