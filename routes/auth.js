@@ -3,7 +3,7 @@ const express = require("express");
 const { check } = require("express-validator");
 
 const authController = require("../controllers/authController");
-// const auth = require("../middleware/auth");
+const auth = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -16,6 +16,6 @@ router.post(
 );
 
 // Obtains authenticated user
-// router.get("/", auth, authController.authenticatedUser);
+router.get("/", auth, authController.authenticatedUser);
 
 module.exports = router;
