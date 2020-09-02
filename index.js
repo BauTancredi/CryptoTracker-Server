@@ -21,7 +21,6 @@ app.listen(port, "0.0.0.0", () => {
 });
 
 //? PENDINGS
-// Hash password
 // Validate fields
 // Create JWT
 // Authenticate users
