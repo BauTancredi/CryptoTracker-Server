@@ -21,6 +21,5 @@ app.listen(port, "0.0.0.0", () => {
 });
 
 //? PENDINGS
-// Create JWT
 // Authenticate users
 // Get cryptos
