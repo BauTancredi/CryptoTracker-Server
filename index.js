@@ -23,5 +23,6 @@ app.listen(port, "0.0.0.0", () => {
 });
 
 //? PENDINGS
-// Get cryptos
+// Get favorites cryptos
 // TryCatch
+// Axios client
