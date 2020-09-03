@@ -46,21 +46,31 @@ exports.getCryptos = async (req, res) => {
 const getCryptoLive = async () => {
   const url = `http://api.coinlayer.com/live?access_key=${process.env.ACCESS_KEY}`;
 
-  const response = await axios.get(url);
+  try {
+    const response = await axios.get(url);
 
-  const filteredCryptos = await filterCryptos(response.data.rates);
+    const filteredCryptos = await filterCryptos(response.data.rates);
 
-  return filteredCryptos;
+    return filteredCryptos;
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
 };
 
 const getCryptoList = async () => {
   const url = `http://api.coinlayer.com/list?access_key=${process.env.ACCESS_KEY}`;
 
-  const response = await axios.get(url);
+  try {
+    const response = await axios.get(url);
 
-  const filteredCryptos = await filterCryptos(response.data.crypto);
+    const filteredCryptos = await filterCryptos(response.data.crypto);
 
-  return filteredCryptos;
+    return filteredCryptos;
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
 };
 
 const getCryptoLastDate = async () => {
@@ -68,11 +78,16 @@ const getCryptoLastDate = async () => {
 
   const url = `http://api.coinlayer.com/${yesterdayDateString}?access_key=${process.env.ACCESS_KEY}`;
 
-  const response = await axios.get(url);
+  try {
+    const response = await axios.get(url);
 
-  const filteredCryptos = await filterCryptos(response.data.rates);
+    const filteredCryptos = await filterCryptos(response.data.rates);
 
-  return filteredCryptos;
+    return filteredCryptos;
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
 };
 
 const getYesterdayDate = async () => {
@@ -144,27 +159,37 @@ exports.getFavoriteCryptos = async (req, res) => {
 const getCryptoLiveFavorites = async (user) => {
   const url = `http://api.coinlayer.com/live?access_key=${process.env.ACCESS_KEY}`;
 
-  const response = await axios.get(url);
+  try {
+    const response = await axios.get(url);
 
-  const filteredCryptos = await filterCryptosFavorites(
-    response.data.rates,
-    user
-  );
+    const filteredCryptos = await filterCryptosFavorites(
+      response.data.rates,
+      user
+    );
 
-  return filteredCryptos;
+    return filteredCryptos;
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
 };
 
 const getCryptoListFavorites = async (user) => {
   const url = `http://api.coinlayer.com/list?access_key=${process.env.ACCESS_KEY}`;
 
-  const response = await axios.get(url);
+  try {
+    const response = await axios.get(url);
 
-  const filteredCryptos = await filterCryptosFavorites(
-    response.data.crypto,
-    user
-  );
+    const filteredCryptos = await filterCryptosFavorites(
+      response.data.crypto,
+      user
+    );
 
-  return filteredCryptos;
+    return filteredCryptos;
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
 };
 
 const getCryptoLastDateFavorites = async (user) => {
@@ -172,14 +197,19 @@ const getCryptoLastDateFavorites = async (user) => {
 
   const url = `http://api.coinlayer.com/${yesterdayDateString}?access_key=${process.env.ACCESS_KEY}`;
 
-  const response = await axios.get(url);
+  try {
+    const response = await axios.get(url);
 
-  const filteredCryptos = await filterCryptosFavorites(
-    response.data.rates,
-    user
-  );
+    const filteredCryptos = await filterCryptosFavorites(
+      response.data.rates,
+      user
+    );
 
-  return filteredCryptos;
+    return filteredCryptos;
+  } catch (error) {
+    console.log(error);
+    res.json({ error });
+  }
 };
 
 const filterCryptosFavorites = async (cryptosList, user) => {
