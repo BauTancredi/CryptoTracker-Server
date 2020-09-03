@@ -22,7 +22,3 @@ app.use("/favorites", require("./routes/favorites"));
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is working on port ${port}`);
 });
-
-//? PENDINGS
-// TryCatch
-// Axios client
