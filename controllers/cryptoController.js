@@ -123,7 +123,6 @@ const getPriceDifference = async (actualPrice, lastPrice) => {
 };
 
 exports.getFavoriteCryptos = async (req, res) => {
-  console.log(req);
   const user = await User.findById(req.user.id);
 
   const cryptoArray = [];
