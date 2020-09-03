@@ -17,12 +17,12 @@ const port = process.env.PORT || 4000;
 app.use("/api/users", require("./routes/users"));
 app.use("/api/auth", require("./routes/auth"));
 app.use("/", require("./routes/index"));
+app.use("/favorites", require("./routes/favorites"));
 
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server is working on port ${port}`);
 });
 
 //? PENDINGS
-// Get favorites cryptos
 // TryCatch
 // Axios client

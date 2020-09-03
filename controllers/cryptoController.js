@@ -106,3 +106,90 @@ const getPriceDifference = async (actualPrice, lastPrice) => {
 
   return Math.floor(difference * 100) / 100;
 };
+
+exports.getFavoriteCryptos = async (req, res) => {
+  console.log(req);
+  const user = await User.findById(req.user.id);
+
+  const cryptoArray = [];
+
+  const cryptosLive = await getCryptoLiveFavorites(user);
+  const cryptosList = await getCryptoListFavorites(user);
+  const cryptosLastPrice = await getCryptoLastDateFavorites(user);
+
+  for (let index = 0; index < user.favorites.length; index++) {
+    const element = user.favorites[index];
+
+    const priceDifference = await getPriceDifference(
+      cryptosLive[`${element}`],
+      cryptosLastPrice[`${element}`]
+    );
+
+    const cryptoObject = {
+      fullName: cryptosList[`${element}`].name,
+      symbol: cryptosList[`${element}`].symbol,
+      actualPrice: Math.floor(cryptosLive[`${element}`] * 100) / 100,
+      lastPrice: Math.floor(cryptosLastPrice[`${element}`] * 100) / 100,
+      imageUrl: cryptosList[`${element}`].icon_url,
+      difference: priceDifference,
+      differenceSign: Math.sign(priceDifference),
+    };
+
+    cryptoArray.push(cryptoObject);
+  }
+
+  res.json({ cryptoArray });
+};
+
+const getCryptoLiveFavorites = async (user) => {
+  const url = `http://api.coinlayer.com/live?access_key=${process.env.ACCESS_KEY}`;
+
+  const response = await axios.get(url);
+
+  const filteredCryptos = await filterCryptosFavorites(
+    response.data.rates,
+    user
+  );
+
+  return filteredCryptos;
+};
+
+const getCryptoListFavorites = async (user) => {
+  const url = `http://api.coinlayer.com/list?access_key=${process.env.ACCESS_KEY}`;
+
+  const response = await axios.get(url);
+
+  const filteredCryptos = await filterCryptosFavorites(
+    response.data.crypto,
+    user
+  );
+
+  return filteredCryptos;
+};
+
+const getCryptoLastDateFavorites = async (user) => {
+  const yesterdayDateString = await getYesterdayDate();
+
+  const url = `http://api.coinlayer.com/${yesterdayDateString}?access_key=${process.env.ACCESS_KEY}`;
+
+  const response = await axios.get(url);
+
+  const filteredCryptos = await filterCryptosFavorites(
+    response.data.rates,
+    user
+  );
+
+  return filteredCryptos;
+};
+
+const filterCryptosFavorites = async (cryptosList, user) => {
+  const filteredCryptos = Object.keys(cryptosList)
+
+    .filter((key) => user.favorites.includes(key))
+    .reduce((obj, key) => {
+      obj[key] = cryptosList[key];
+      return obj;
+    }, {});
+
+  return filteredCryptos;
+};
